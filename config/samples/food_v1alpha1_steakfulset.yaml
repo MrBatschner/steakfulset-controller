@@ -1,0 +1,12 @@
+apiVersion: food.k8s.training/v1alpha1
+kind: SteakfulSet
+metadata:
+  name: team-barbecue
+spec:
+  guests: 3
+  steak:
+    spec:
+      cookLevel: medium
+      fat: lean
+      variant: angus-rump
+      weight: 250

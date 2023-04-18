@@ -1,0 +1,113 @@
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app.kubernetes.io/name: steakfulset-admin-role
+    app.kubernetes.io/component: rbac
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    helm.sh/chart: steakfulset-controller
+  name: steakfulset-admin-role
+rules:
+- apiGroups:
+  - food.k8s.training
+  resources:
+  - steakfulsets
+  - steaks
+  - steakfulsets/status
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - ""
+  resources:
+  - events
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - watch
+  - update
+  - patch
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app.kubernetes.io/name: steakfulset-editor-role
+    app.kubernetes.io/component: rbac
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    helm.sh/chart: steakfulset-controller
+  name: steakfulset-editor-role
+rules:
+- apiGroups:
+  - food.k8s.training
+  resources:
+  - steakfulsets
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - food.k8s.training
+  resources:
+  - steakfulsets/status
+  verbs:
+  - get
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app.kubernetes.io/name: steak-editor-role
+    app.kubernetes.io/component: rbac
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    helm.sh/chart: steakfulset-controller
+  name: steak-editor-role
+rules:
+- apiGroups:
+  - food.k8s.training
+  resources:
+  - steaks
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - food.k8s.training
+  resources:
+  - steaks/status
+  verbs:
+  - get
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  labels:
+    app.kubernetes.io/name: steakfulset-admin-clusterrolebinding
+    app.kubernetes.io/component: rbac
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    helm.sh/chart: steakfulset-controller
+  name: steakfulset-admin-clusterrolebinding
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: steakfulset-admin-role
+subjects:
+  - kind: ServiceAccount
+    name: steakfulset-chef
+    namespace: {{ .Release.Namespace }}

@@ -1,0 +1,9 @@
+image:
+  repository: thbb/steakfulset-controller
+  tag: latest
+  pullPolicy: IfNotPresent
+
+resources:
+  limits:
+    memory: "256Mi"
+    cpu: "250m"
