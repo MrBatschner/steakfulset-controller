@@ -14,8 +14,10 @@ This repository is heavily based on [Kubebuilder](https://github.com/kubernetes-
 
 The custom resources `SteakfulSet` and `Steak` are defined in Go source code within the files inside the [`api/v1alpha`](api/v1alpha1/) folder. Inside the Go source files, we use some Kubebuilder decorators to describe some spefic of the custom resources. Then, the following command will invoke Kubebuilder's generator to create the [custom resource definition](https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/) files:
 
-    make manifests
-    
+```shell
+make manifests
+```
+
 The resulting CRDs can be found in the [`config/crd`](config/crd/) directory.
 
 ### The controller
@@ -34,7 +36,7 @@ You’ll need a Kubernetes cluster to run against. You can use [KIND](https://si
 
 To install the SteakfulSet controller into your cluster with the help of Helm, simply look into the [`charts`](charts) directory. Install it with:
 
-```
+```shell
 kubectl create ns steakfulset-controller
 helm install -n steakfulset-controller bbq charts/steakfulset-controller
 ```
@@ -45,33 +47,37 @@ To fry your first Steaks, just `kubectl apply -f config/samples/food_v1alpha1_st
 
 1. Install the CRDs into the cluster:
 
-    ```sh
+    ```shell
     make install
     ```
 
 1. Build and push your image to the location specified by `IMG`:
 
-    ```sh
+    ```shell
     make docker-build docker-push IMG=<some-registry>/steakfulset-controller:tag
     ```
 
+    **Note:** If you are building this on arm64 (read :apple: Apple Silicon) and your Kubernetes cluster is running with amd64 machines, you need to set the environment variable `BUILDPLATFORM` to `linux/amd64` before running this command.
+
 1. Deploy the controller to the cluster with the image specified by `IMG`:
 
-    ```sh
+    ```shell
     make deploy IMG=<some-registry>/steakfulset-controller:tag
     ```
 
 ### Uninstall CRDs
+
 To delete the CRDs from the cluster:
 
-```sh
+```shell
 make uninstall
 ```
 
 ### Undeploy controller
+
 UnDeploy the controller from the cluster:
 
-```sh
+```shell
 make undeploy
 ```
 

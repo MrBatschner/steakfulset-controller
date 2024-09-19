@@ -87,6 +87,7 @@ type SteakStatus struct {
 //+kubebuilder:printcolumn:JSONPath=.spec.cookLevel,type=string,name=Cooked,description="The level of how thorough this Steak is cooked."
 //+kubebuilder:printcolumn:JSONPath=.spec.fat,type=string,name=Fat,description="The juicyness of this Steak."
 //+kubebuilder:printcolumn:JSONPath=.spec.variant,type=string,name=Variant,description="The kind of this Steak."
+//+kubebuilder:printcolumn:JSONPath=.metadata.creationTimestamp,type=date,name=Age
 
 // Steak is the Schema for the steaks API
 type Steak struct {

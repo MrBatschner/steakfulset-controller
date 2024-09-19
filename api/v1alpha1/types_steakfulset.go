@@ -45,6 +45,7 @@ type SteakfulSetStatus struct {
 //+kubebuilder:printcolumn:JSONPath=.spec.steak.spec.cookLevel,type=string,name=Cooked,description="The level of how thorough the Steak should be cooked."
 //+kubebuilder:printcolumn:JSONPath=.spec.steak.spec.fat,type=string,name=Fat,description="The juicyness of the Steaks to be served."
 //+kubebuilder:printcolumn:JSONPath=.spec.steak.spec.variant,type=string,name=Variant,description="The kind of Steak to be served."
+//+kubebuilder:printcolumn:JSONPath=.metadata.creationTimestamp,type=date,name=Age
 
 // SteakfulSet is the Schema for the steakfulsets API
 type SteakfulSet struct {
