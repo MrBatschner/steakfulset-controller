@@ -1,0 +1,15 @@
+version: 2
+updates:
+# Create PRs for k8s related dependency updates
+- package-ecosystem: gomod
+  directory: /
+  schedule:
+    interval: daily
+  open-pull-requests-limit: 5
+  allow:
+  - dependency-name: "sigs.k8s.io/controller-runtime"
+# Create PRs for golang version updates
+- package-ecosystem: docker
+  directory: /
+  schedule:
+    interval: daily
