@@ -21,7 +21,6 @@ import (
 	"math/rand"
 
 	"k8s.io/apimachinery/pkg/runtime"
-	krand "k8s.io/apimachinery/pkg/util/rand"
 	ref "k8s.io/client-go/tools/reference"
 
 	ctrl "sigs.k8s.io/controller-runtime"
@@ -105,10 +104,8 @@ func (r *SteakfulSetReconciler) Reconcile(ctx context.Context, req ctrl.Request)
 		for actualSteakCount < desiredSteakCount {
 			steak := foodv1alpha1.Steak{
 				ObjectMeta: metav1.ObjectMeta{
-					Labels:      make(map[string]string),
-					Annotations: make(map[string]string),
-					Name:        fmt.Sprintf("%s-%s", steakfulSet.Name, krand.String(6)),
-					Namespace:   steakfulSet.Namespace,
+					GenerateName: fmt.Sprintf("%s-", steakfulSet.Name),
+					Namespace:    steakfulSet.Namespace,
 				},
 				Spec: *steakfulSet.Spec.Steak.Spec.DeepCopy(),
 			}
